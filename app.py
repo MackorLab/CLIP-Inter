@@ -214,4 +214,4 @@ with gr.Blocks(css=CSS) as block:
     )
     share_button.click(None, [], [], _js=share_js)
 
-block.queue(max_size=64).launch(show_api=False)
+block.queue(max_size=64).launch(show_api=True,debug=True, max_threads=True, share=True, inbrowser=True)
