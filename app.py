@@ -83,11 +83,11 @@ def analyze_tab():
             flavor = gr.Label(label="Flavor", num_top_classes=5)
     button = gr.Button("Analyze")
     button.click(image_analysis, inputs=image, outputs=[medium, artist, movement, trending, flavor])
-title = "Promt - Воровайка(CLIP)"
+
 with gr.Blocks() as ui:
     with gr.Tab("Prompt"):
         prompt_tab()
     with gr.Tab("Analyze"):
         analyze_tab()
 
-ui.launch(title=title, debug=True, max_threads=True, share=True, inbrowser=True)
+ui.launch(debug=True, max_threads=True, share=True, inbrowser=True)
