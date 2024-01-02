@@ -1,4 +1,5 @@
-import os, subprocess
+import os
+import subprocess
 
 def setup():
     install_cmds = [
@@ -10,11 +11,6 @@ def setup():
         print(subprocess.run(cmd, stdout=subprocess.PIPE).stdout.decode('utf-8'))
 
 setup()
-
-from IPython.display import display, HTML
-
-title_html = '<h1>Сучонок ты электронный</h1>'
-display(HTML(title_html))
 
 caption_model_name = 'blip-large' #@param ["blip-base", "blip-large", "git-large-coco"]
 clip_model_name = 'ViT-L-14/openai' #@param ["ViT-L-14/openai", "ViT-H-14/laion2b_s32b_b79k"]
@@ -81,10 +77,6 @@ def analyze_tab():
     button = gr.Button("Analyze")
     button.click(image_analysis, inputs=image, outputs=[medium, artist, movement, trending, flavor])
 
-with gr.Blocks() as ui:
-    with gr.Tab("Prompt"):
-        prompt_tab()
-    with gr.Tab("Analyze"):
-        analyze_tab()
-
+title = "Мое приложение для анализа изображений"
+ui = gr.Interface([prompt_tab, analyze_tab], title=title)
 ui.launch(debug=True, max_threads=True, share=True, inbrowser=True)
