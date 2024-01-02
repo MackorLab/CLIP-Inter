@@ -1,3 +1,5 @@
+import gradio as gr
+
 def prompt_tab():
     with gr.Column():
         with gr.Row():
