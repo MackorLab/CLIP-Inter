@@ -60,7 +60,7 @@ def image_to_prompt(image, mode):
 
 
 #@title Image to prompt! 🖼️ -> 📝
-
+title = "Promt - Воровайка(CLIP)"
 def prompt_tab():
     with gr.Column():
         with gr.Row():
@@ -90,4 +90,4 @@ with gr.Blocks() as ui:
     with gr.Tab("Analyze"):
         analyze_tab()
 
-ui.launch(debug=True, max_threads=True, share=True, inbrowser=True)
+ui.launch(title=title, debug=True, max_threads=True, share=True, inbrowser=True)
