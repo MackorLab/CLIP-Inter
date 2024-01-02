@@ -1,5 +1,5 @@
 #@title Setup
-!nvidia-smi -L
+
 import os, subprocess
 
 def setup():
