@@ -60,7 +60,7 @@ def image_to_prompt(image, mode):
 
 
 #@title Image to prompt! 🖼️ -> 📝
-title = "Promt - Воровайка(CLIP)"
+
 def prompt_tab():
     with gr.Column():
         with gr.Row():
@@ -83,7 +83,7 @@ def analyze_tab():
             flavor = gr.Label(label="Flavor", num_top_classes=5)
     button = gr.Button("Analyze")
     button.click(image_analysis, inputs=image, outputs=[medium, artist, movement, trending, flavor])
-
+title = "Promt - Воровайка(CLIP)"
 with gr.Blocks() as ui:
     with gr.Tab("Prompt"):
         prompt_tab()
