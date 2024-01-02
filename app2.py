@@ -51,9 +51,9 @@ def prompt_tab():
             image = gr.inputs.Image(label="Image")
             with gr.Column():
                 mode = gr.inputs.Radio(['best', 'fast', 'classic', 'negative'], label='Mode', default='best')
+            button = gr.Button("Generate prompt")
         prompt = gr.outputs.Textbox(label="Prompt")
-    button = gr.Button("Generate prompt")
-    button.click(image_to_prompt, inputs=[image, mode], outputs=prompt)
+    return gr.Interface(inputs=[image, mode], outputs=prompt, titled_button=True, title=title, layout='vertical')
 def analyze_tab():
     with gr.Column():
         with gr.Row():
@@ -64,12 +64,13 @@ def analyze_tab():
             movement = gr.outputs.Label(label="Movement", type="auto", max_length=5)
             trending = gr.outputs.Label(label="Trending", type="auto", max_length=5)
             flavor = gr.outputs.Label(label="Flavor", type="auto", max_length=5)
-    button = gr.Button("Analyze")
-    button.click(image_analysis, inputs=image, outputs=[medium, artist, movement, trending, flavor])
-ui = gr.Interface(fn=None, title=title, description="", layout="vertical",  \
-                    verbose = False, \
-                    inputs=[\
-                          gr.Interface(fn = prompt_tab, title = "Prompt ", description = "", layout = "vertical")\
-                    ]\
-               )
+    return gr.Interface(inputs=image, outputs=[medium, artist, movement, trending, flavor], title="Analyze", layout='vertical')
+ui = gr.Interface(
+    fn=None,
+    title=title,
+    layout="vertical",
+    description="Изображение в текстовое описание или анализ",
+    inputs=[gr.Interface(fn=prompt_tab, title="Prompt", layout="vertical")],
+    outputs=[gr.Interface(fn=analyze_tab, title="Analyze", layout="vertical")]
+)
 ui.launch(inbrowser=True)
