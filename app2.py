@@ -1,5 +1,6 @@
-import os
-import subprocess
+#@title Setup
+
+import os, subprocess
 
 def setup():
     install_cmds = [
@@ -11,6 +12,7 @@ def setup():
         print(subprocess.run(cmd, stdout=subprocess.PIPE).stdout.decode('utf-8'))
 
 setup()
+
 
 caption_model_name = 'blip-large' #@param ["blip-base", "blip-large", "git-large-coco"]
 clip_model_name = 'ViT-L-14/openai' #@param ["ViT-L-14/openai", "ViT-H-14/laion2b_s32b_b79k"]
@@ -54,6 +56,11 @@ def image_to_prompt(image, mode):
     elif mode == 'negative':
         return ci.interrogate_negative(image)
 
+
+
+
+#@title Image to prompt! 🖼️ -> 📝
+
 def prompt_tab():
     with gr.Column():
         with gr.Row():
@@ -77,6 +84,11 @@ def analyze_tab():
     button = gr.Button("Analyze")
     button.click(image_analysis, inputs=image, outputs=[medium, artist, movement, trending, flavor])
 
+with gr.Blocks() as ui:
+    with gr.Tab("Prompt"):
+        prompt_tab()
+    with gr.Tab("Analyze"):
+        analyze_tab()
+
 title = "Мое приложение для анализа изображений"
-ui = gr.Interface([prompt_tab, analyze_tab], title=title)
-ui.launch(debug=True, max_threads=True, share=True, inbrowser=True)
+ui.launch(title=title, debug=True, max_threads=True, share=True, inbrowser=True)
